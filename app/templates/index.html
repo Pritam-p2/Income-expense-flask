@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+{% block content %}
+    
+    <div class="col-sm-10 ml-auto mr-auto ">
+        <H2>Transaction History</H2>
+        
+        <div class="d-flex  mt-2">
+            
+            <a href="{{ url_for('filterIncome') }}" class="btn btn-outline-primary btn-sm mr-2 mb-2"><strong>Income</strong></a>
+            <a href="{{ url_for('filterExpense') }}" class="btn btn-outline-primary btn-sm mr-2 mb-2"><strong>Expense</strong></a>
+            <a href="{{url_for('index')}}" class="btn btn-outline-primary btn-sm mb-2"><strong>Summary</strong></a>
+        </div>
+
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in entries %}
+                        <tr>
+                            <th scope="row">{{loop.index}}</th>
+                            <td>{{entry.date.strftime("%m-%d-%Y")}}</td>
+                            <td>{{entry.type}}</td>
+                            <td>{{ entry.category }}</td>
+                            <td>{{ entry.amount }}</td>
+                            <td><a href="{{ url_for('delete', entry_id = entry.id) }}" class="btn btn-outline-danger btn-sm">Delete</a></td>
+                        </tr>
+                {% endfor %}
+        </tbody>
+        </table>
+        <div class="d-flex justify-content-center mt-2">
+            <a href="{{ url_for('add_expense') }}" class="btn btn-outline-danger btn-sm"><strong>ADD</strong></a>
+            
+          </div>
+        <div class="d-flex justify-content-center mt-2">
+            
+            <a href="{{ url_for('dashboard') }}" class="btn btn-outline-primary btn-sm"><strong>Dashboard</strong></a>
+          </div>
+    </div>
+{% endblock %}
